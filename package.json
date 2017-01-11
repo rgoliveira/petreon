@@ -1,0 +1,21 @@
+{
+  "name": "petreon",
+  "version": "1.0.0",
+  "description": "![Petreon Logo](/assets/petreon.png)",
+  "scripts": {
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rgoliveira/petreon.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rgoliveira/petreon/issues"
+  },
+  "homepage": "https://github.com/rgoliveira/petreon#readme",
+  "devDependencies": {
+    "eslint": "^3.13.1",
+    "eslint-plugin-import": "^2.2.0"
+  }
+}
