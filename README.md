@@ -13,7 +13,8 @@ Organizations that targets dog adoption/donation campaigns via a web interface.
 5. Install Composer (which has an [installer](https://getcomposer.org/download/))
 6. Browse to /api
 7. Run `composer install`
-8. Run `python run_server.py`
+8. Run `composer start`
+9. The server is running at http://localhost:8080
 
 ## Provided to you by the team number one
 ![Team One Flag](/assets/team_flag.png)
