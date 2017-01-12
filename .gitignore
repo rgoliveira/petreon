@@ -1,6 +1,19 @@
-.DS_Store
-.idea
-node_modules/
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
+# dependencies
+node_modules
+
+# testing
+coverage
+
+# production
+build
+
+
+# misc
 dist/
+.DS_Store
+.env
+.idea
 npm-debug.log
 selenium-debug.log
