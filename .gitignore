@@ -17,3 +17,8 @@ dist/
 .idea
 npm-debug.log
 selenium-debug.log
+
+# stupid nginx
+conf/nginx.conf
+
+logs/
