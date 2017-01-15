@@ -4,6 +4,18 @@
 This is a project that aids the creation of a platform for Non-Profit
 Organizations that targets dog adoption/donation campaigns via a web interface.
 
+## Development Guide on Linux (Ubuntu)
+
+1. `apt install php php7.0-mbstring php7.0-xml`
+2. install node/npm
+  1. `curl -sL https://deb.nodesource.com/setup_7.x | sudo -E bash -`
+  2. `apt install -y nodejs`
+  3. `npm install npm@latest`
+3. install composer
+  1. `php composerphp composer-setup.php --install-dir=api --filename=composer`
+  2. `php api/composer.phar install`
+4. `api/composer start`
+
 ## Development Guide on Windows
 
 1. Install PHP into some folder and add that to your PATH (using the [x64 Thread Safe version](http://windows.php.net/download/))
