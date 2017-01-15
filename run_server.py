@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 from __future__ import print_function
 from os import path
 from string import Template
