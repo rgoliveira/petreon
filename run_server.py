@@ -32,7 +32,7 @@ if os.name == 'posix':
         # We aren't reponsible for those :D
         php_cgi, nginx = (None,) * 2
     except IOError as e:
-        if (e[0] == errno.EACCES):
+        if (e.errno == errno.EACCES):
             print('You need to run this script as root.', file=sys.stderr)
             sys.exit(1)
 else:
