@@ -10,7 +10,6 @@ coverage
 # production
 build
 
-
 # misc
 dist/
 .DS_Store
@@ -18,3 +17,10 @@ dist/
 .idea
 npm-debug.log
 selenium-debug.log
+
+# stupid nginx
+conf/nginx.conf
+logs/
+
+# vm
+.vagrant

@@ -4,6 +4,22 @@
 This is a project that aids the creation of a platform for Non-Profit
 Organizations that targets dog adoption/donation campaigns via a web interface.
 
+## Development Guide using Vagrant
+
+1. Install vagrant in your platform
+2. Install VirtualBox in your platform
+3. Install Git in your platform
+4. (Windows-only) Run Git Bash as administrator (so symlinks work)
+5. Clone this project and cd to it
+6. Run `vagrant up` and the VM should be downloaded and installed
+7. Run `vagrant ssh` to access the VM
+8. You should see the petreon directory in the home folder, cd to it
+9. Run `sudo ./setup_vm.py` to npm install and php install all the required components
+10. If you got a Protocol Error in the previous step, make sure to run Git Bash
+as administrator, proceed to `exit`, `vagrant halt` and try again!
+11. Run `./run_server.py` and access the server by the IP on the Vagrantfile
+(defaulted at 192.168.33.10)
+
 ## Development Guide on Linux (Ubuntu)
 
 1. `apt install php php7.0-mbstring php7.0-xml`
