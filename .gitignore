@@ -10,7 +10,6 @@ coverage
 # production
 build
 
-
 # misc
 dist/
 .DS_Store
@@ -21,5 +20,7 @@ selenium-debug.log
 
 # stupid nginx
 conf/nginx.conf
-
 logs/
+
+# vm
+.vagrant
