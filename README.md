@@ -32,6 +32,13 @@ as administrator, proceed to `exit`, `vagrant halt` and try again!
   2. `php api/composer.phar install`
 4. `api/composer start`
 
+Troubleshooting `run_server.py`:
+- If you get an error about `node not found` and you're using nvm
+    - Check line 46 (`subprocess.Popen(['node'...`), and fill in a full path to the node version you want to use (usually `~/.nvm/versions/node/vX.Y.Z/bin/node`)
+- If you get an error about nginx being unable to find a `nginx.pid` file:
+    - The script already overwrote nginx's settings. Just start it manually (or reload if already running), as with the frontend and backend dev servers.
+
+
 ## Development Guide on Windows
 
 1. Install PHP into some folder and add that to your PATH (using the [x64 Thread Safe version](http://windows.php.net/download/))
