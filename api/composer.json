@@ -1,14 +1,12 @@
 {
-    "name": "slim/slim-skeleton",
-    "description": "A Slim Framework skeleton application for rapid development",
-    "keywords": ["microframework", "rest", "router", "psr7"],
-    "homepage": "http://github.com/slimphp/Slim-Skeleton",
+    "name": "petreon.api",
+    "description": "Petreon - API",
+    "keywords": ["petreon", "api", "rest"],
+    "homepage": "http://github.com/rgoliveira/petreon",
     "license": "MIT",
     "authors": [
         {
-            "name": "Josh Lockhart",
-            "email": "info@joshlockhart.com",
-            "homepage": "http://www.joshlockhart.com/"
+          "name": "rgoliveira"
         }
     ],
     "require": {
