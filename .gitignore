@@ -24,3 +24,7 @@ logs/
 
 # vm
 .vagrant
+
+# vim
+*.swp
+*.swo
