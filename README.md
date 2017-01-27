@@ -1,4 +1,4 @@
-# Petreon
+# Petreon [![Build Status](https://travis-ci.org/rgoliveira/petreon.svg?branch=master)](https://travis-ci.org/rgoliveira/petreon) 
 ![Petreon Logo](/assets/petreon.png)
 
 This is a project that aids the creation of a platform for Non-Profit
