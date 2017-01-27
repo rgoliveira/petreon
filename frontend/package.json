@@ -1,7 +1,7 @@
 {
   "name": "petreon",
   "version": "0.1.0",
-  "description": "![Petreon Logo](/assets/petreon.png)",
+  "description": "![Petreon Logo](../assets/petreon.png)",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/rgoliveira/petreon.git"
@@ -70,7 +70,7 @@
   },
   "jest": {
     "collectCoverageFrom": [
-      "src/**/*.{js,jsx}"
+      "frontend/src/**/*.{js,jsx}"
     ],
     "setupFiles": [
       "<rootDir>/config/polyfills.js"

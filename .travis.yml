@@ -1,0 +1,29 @@
+language: python
+
+python:
+    - "3.4"
+    - "3.5"
+    - "3.6"
+
+env:
+    global:
+        - API_DIR=$TRAVIS_BUILD_DIR/api 
+        - FRONTEND_DIR=$TRAVIS_BUILD_DIR/frontend
+        - TRAVIS_NODE_VERSION=7
+
+cache:
+    pip: true
+    directories:
+        - $FRONTEND_DIR/node_modules/
+
+before_install:
+    - pip install pytest pytest-cov
+    - nvm install node
+
+install: 
+    - cd $API_DIR && pip install -r requirements.txt
+    - cd $FRONTEND_DIR && npm install
+
+script: 
+    - cd $API_DIR && py.test
+    - cd $FRONTEND_DIR && npm run test
