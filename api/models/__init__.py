@@ -10,12 +10,12 @@ Base = declarative_base()
 # which is used by Alembic to read the database
 # structure.
 
-from models import campaign
-from models import donation
-from models import donor
-from models import organization
-from models import organization_contact_info
-from models import pending_verification
-from models import rescuee
-from models import rescuee_picture
+from models.campaign                  import Campaign
+from models.donation                  import Donation
+from models.donor                     import Donor
+from models.organization              import Organization
+from models.organization_contact_info import OrganizationContactInfo
+from models.pending_verification      import PendingVerification
+from models.rescuee                   import Rescuee
+from models.rescuee_picture           import RescueePicture
 

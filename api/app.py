@@ -3,7 +3,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
 from config import DBConfig
-from models.rescuee import Rescuee
+from models import Rescuee
 from petreon_utils import toDict
 
 app = Flask(__name__)
