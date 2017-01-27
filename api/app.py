@@ -8,7 +8,7 @@ from sqlalchemy.orm import sessionmaker
 
 from config import DBConfig
 from models import Rescuee
-from petreon_utils import toDict
+from petreon_utils import to_dict
 
 app = Flask(__name__)
 
@@ -16,7 +16,7 @@ engine = create_engine(DBConfig.DATABASE_URL)
 Session = sessionmaker(bind=engine)
 
 @app.route("/init-tests")
-def initTests():
+def init_tests():
     session = Session()
     try:
         objs =  [
@@ -32,18 +32,18 @@ def initTests():
         pass
 
     # session must be open to get model columns
-    res = toDict(objs)
+    res = to_dict(objs)
     session.close()
-    return redirect(url_for("getRescuees"))
+    return redirect(url_for("get_rescuees"))
 
 @app.route("/rescuees")
-def getRescuees():
+def get_rescuees():
     session = Session()
 
     rescuees = session.query(Rescuee).all()
     session.close()
 
-    return jsonify({"rescuees": toDict(rescuees)})
+    return jsonify({"rescuees": to_dict(rescuees)})
 
 if __name__ == "__main__":
 
@@ -81,4 +81,3 @@ if __name__ == "__main__":
     # set debug so it'll reload on code change and be more verbose
     print("Starting app...", file=sys.stderr)
     app.run(host='0.0.0.0', debug=True)
-

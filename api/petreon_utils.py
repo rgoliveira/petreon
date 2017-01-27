@@ -1,19 +1,18 @@
 from sqlalchemy.orm import class_mapper, ColumnProperty
 
-def toDict(modelObj):
+def to_dict(model_obj):
     """Returns a dict representation of a SQLAlchemy model object.
 
     Keyword arguments:
-    modelObj -- a SQLAlchemy model object or a list of them
+    model_obj -- a SQLAlchemy model object or a list of them
     """
-    if isinstance(modelObj, list):
-        return [toDict(o) for o in modelObj]
+    if isinstance(model_obj, list):
+        return [to_dict(o) for o in model_obj]
     else:
-        props = [prop.key for prop in class_mapper(type(modelObj)).iterate_properties
+        props = [prop.key for prop in class_mapper(type(model_obj)).iterate_properties
             if isinstance(prop, ColumnProperty)]
         d = {}
         for prop in props:
-            d[prop] = getattr(modelObj, prop)
+            d[prop] = getattr(model_obj, prop)
 
         return d
-
