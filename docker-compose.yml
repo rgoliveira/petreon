@@ -3,7 +3,7 @@ services:
   web:
     build: ./api
     #command: bash
-    command: bash -c "alembic upgrade head && python app.py"
+    command: python app.py
     volumes:
       - ./api:/code
     ports:
