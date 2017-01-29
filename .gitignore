@@ -32,3 +32,6 @@ logs/
 
 # python
 __pycache__
+
+# pytest
+.cache/
