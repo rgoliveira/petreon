@@ -1,8 +1,12 @@
 # Petreon [![Build Status](https://travis-ci.org/rgoliveira/petreon.svg?branch=master)](https://travis-ci.org/rgoliveira/petreon) 
 ![Petreon Logo](/assets/petreon.png)
 
-This is a project that aids the creation of a platform for Non-Profit
-Organizations that targets dog adoption/donation campaigns via a web interface.
+This is a project that aids the creation of a platform for Non-Profit Organizations that targets dog adoption/donation campaigns via a web interface. We're currently in early stages of design and development.
+
+## What's going on
+
+- Current project status and what's being worked on can be seen at our public Trello board - [Platform Development](https://trello.com/b/a8WBTniU/platform-development) - and at the [issue tracker of this repository](https://github.com/rgoliveira/petreon/issues).
+- To get in touch with the dev team, you're welcome to join our Discord server: [Programming Discussions](https://discord.gg/9zT7NHP).
 
 ## Development Guide
 
