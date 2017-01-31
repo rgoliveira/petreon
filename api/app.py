@@ -5,46 +5,38 @@ import psycopg2
 
 from flask import Flask, jsonify, redirect, url_for
 from flask_migrate import Migrate, MigrateCommand, upgrade
+from flask_restful import reqparse, abort, Api, Resource
 
-from config import DBConfig
+import config
 from models import db
 from models import Rescuee
-from petreon_utils import to_dict
 
-app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = DBConfig.DATABASE_URL
-migrate = Migrate(app, db)
-db.init_app(app)
+from resources.rescuee import RescueeAPI, RescueesAPI
+from resources.tests import TestsAPI
 
-@app.route("/init-tests")
-def init_tests():
-    try:
-        objs =  [
-                Rescuee(id="diddy", name="Diddy", kind="dog"),
-                Rescuee(id="dixie", name="Dixie", kind="dog")
-                ]
-        for o in objs:
-            db.session.add(o)
-        db.session.commit()
-    except:
-        # rescuee already there with that name
-        db.session.rollback()
-        pass
+def create_app(config_obj = None):
+    app = Flask(__name__)
+    app.config.from_object(config_obj or config.DevelopmentConfig)
 
-    # session must be open to get model columns
-    res = to_dict(objs)
-    return redirect(url_for("get_rescuees"))
+    # extensions
+    api = Api(app)
+    migrate = Migrate(app, db)
+    db.init_app(app)
 
-@app.route("/rescuees")
-def get_rescuees():
+    # setup resources
+    api.add_resource(RescueesAPI, '/rescuees')
+    api.add_resource(RescueeAPI, '/rescuee/<string:rescuee_id>')
 
-    rescuees = Rescuee.query.all()
+    if app.config["TESTING"]:
+        api.add_resource(TestsAPI, '/tests')
 
-    return jsonify({"rescuees": to_dict(rescuees)})
+    return app
 
 if __name__ == "__main__":
 
     # todo: use proper logging instead or printing to stderr!
+
+    app = create_app()
 
     #
     # ensure db is ready
@@ -52,7 +44,7 @@ if __name__ == "__main__":
     db_ok = False
     while not db_ok:
         try:
-            conn = psycopg2.connect(DBConfig.DATABASE_URL)
+            conn = psycopg2.connect(app.config['SQLALCHEMY_DATABASE_URI'])
             db_ok = True
             print("Database ready!", file=sys.stderr)
         except Exception as e:

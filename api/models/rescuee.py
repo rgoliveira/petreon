@@ -2,6 +2,7 @@ from models import db
 from models.custom_types import GUID
 import uuid
 import enum
+from flask.ext.restful import fields, marshal_with
 
 class Rescuee(db.Model):
     __tablename__ = 'rescuee'
