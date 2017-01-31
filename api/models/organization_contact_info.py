@@ -1,11 +1,9 @@
-from sqlalchemy import *
-from sqlalchemy.orm import relationship
-from models import Base
+from models import db
 from models.custom_types import GUID
 import uuid
 import enum
 
-class OrganizationContactInfo(Base):
+class OrganizationContactInfo(db.Model):
     __tablename__ = 'organization_contact_info'
 
     class Organization_Contact_Info_Types(enum.Enum):
@@ -16,9 +14,9 @@ class OrganizationContactInfo(Base):
         instagram = "Instagram"
         address   = "Address"
 
-    uuid                = Column(GUID, primary_key=True, default=uuid.uuid4)
-    organization_uuid   = Column(GUID, ForeignKey('organization.uuid'), nullable=False)
-    type                = Column(Enum(Organization_Contact_Info_Types), nullable=False)
-    contact_info        = Column(Text, nullable=False)
-    details             = Column(Text)
+    uuid                = db.Column(GUID, primary_key=True, default=uuid.uuid4)
+    organization_uuid   = db.Column(GUID, db.ForeignKey('organization.uuid'), nullable=False)
+    type                = db.Column(db.Enum(Organization_Contact_Info_Types), nullable=False)
+    contact_info        = db.Column(db.Text, nullable=False)
+    details             = db.Column(db.Text)
 

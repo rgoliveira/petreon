@@ -1,17 +1,15 @@
-from sqlalchemy import *
-from sqlalchemy.orm import relationship
-from models import Base
+from models import db
 from models.custom_types import GUID
 import uuid
 
-class Organization(Base):
+class Organization(db.Model):
     __tablename__ = 'organization'
 
-    uuid            = Column(GUID, primary_key=True, default=uuid.uuid4)
-    name            = Column(String(120), nullable=False)
-    country         = Column(String(100))
-    state           = Column(String(100))
-    street_address  = Column(Text)
-    logo            = Column(Text)
-    contact_infos   = relationship("OrganizationContactInfo", backref="organization")
+    uuid            = db.Column(GUID, primary_key=True, default=uuid.uuid4)
+    name            = db.Column(db.String(120), nullable=False)
+    country         = db.Column(db.String(100))
+    state           = db.Column(db.String(100))
+    street_address  = db.Column(db.Text)
+    logo            = db.Column(db.Text)
+    contact_infos   = db.relationship("OrganizationContactInfo", backref="organization")
 

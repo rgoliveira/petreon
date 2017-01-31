@@ -1,11 +1,9 @@
-from sqlalchemy import *
-from sqlalchemy.orm import relationship
-from models import Base
+from models import db
 from models.custom_types import GUID
 import uuid
 import enum
 
-class Rescuee(Base):
+class Rescuee(db.Model):
     __tablename__ = 'rescuee'
 
     class Rescuee_Size(enum.Enum):
@@ -20,23 +18,23 @@ class Rescuee(Base):
         female  = "Female"
         unknown = "Unknown"
 
-    uuid                = Column(GUID, primary_key=True, default=uuid.uuid4)
-    id                  = Column(String(120), nullable=False, unique=True)
-    name                = Column(String(120), nullable=False)
-    kind                = Column(String(100), nullable=False)
-    age                 = Column(Float(2))
-    size                = Column(Enum(Rescuee_Size))
-    weight              = Column(Float(2))
-    sex                 = Column(Enum(Rescuee_Sex))
-    sterilized          = Column(Boolean)
-    health_status       = Column(Text)
-    temperament         = Column(String(100))
-    description         = Column(Text)
-    profile_pic         = Column(Text)
-    date_of_rescue      = Column(Date)
-    date_of_adoption    = Column(Date)
-    pictures            = relationship("RescueePicture", backref="rescuee")
-    campaigns           = relationship("Campaign", backref="rescuee")
+    uuid                = db.Column(GUID, primary_key=True, default=uuid.uuid4)
+    id                  = db.Column(db.String(120), nullable=False, unique=True)
+    name                = db.Column(db.String(120), nullable=False)
+    kind                = db.Column(db.String(100), nullable=False)
+    age                 = db.Column(db.Float(2))
+    size                = db.Column(db.Enum(Rescuee_Size))
+    weight              = db.Column(db.Float(2))
+    sex                 = db.Column(db.Enum(Rescuee_Sex))
+    sterilized          = db.Column(db.Boolean)
+    health_status       = db.Column(db.Text)
+    temperament         = db.Column(db.String(100))
+    description         = db.Column(db.Text)
+    profile_pic         = db.Column(db.Text)
+    date_of_rescue      = db.Column(db.Date)
+    date_of_adoption    = db.Column(db.Date)
+    pictures            = db.relationship("RescueePicture", backref="rescuee")
+    campaigns           = db.relationship("Campaign", backref="rescuee")
 
     def __repr__(self):
         return "<Rescuee id=" + self.id + ">"

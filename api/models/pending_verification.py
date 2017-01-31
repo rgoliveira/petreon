@@ -1,14 +1,11 @@
-from sqlalchemy import *
-from sqlalchemy.orm import relationship
-from models import Base
+from models import db
 from models.custom_types import GUID
 import uuid
 
-class PendingVerification(Base):
+class PendingVerification(db.Model):
     __tablename__ = 'pending_verification'
 
-    uuid        = Column(GUID, primary_key=True, default=uuid.uuid4)
-    donor_uuid  = Column(GUID, ForeignKey("donor.uuid"))
-    expires     = Column(TIMESTAMP(timezone=True))
-
+    uuid        = db.Column(GUID, primary_key=True, default=uuid.uuid4)
+    donor_uuid  = db.Column(GUID, db.ForeignKey("donor.uuid"))
+    expires     = db.Column(db.TIMESTAMP(timezone=True))
 

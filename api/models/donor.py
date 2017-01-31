@@ -1,18 +1,14 @@
-from sqlalchemy import *
-from sqlalchemy.orm import relationship
-from sqlalchemy_utils import EmailType
-from models import Base
+from models import db
 from models.custom_types import GUID
 import uuid
-import enum
+from sqlalchemy_utils import EmailType
 
-class Donor(Base):
+class Donor(db.Model):
     __tablename__ = 'donor'
 
-    uuid        = Column(GUID, primary_key=True, default=uuid.uuid4)
-    name        = Column(String(255), nullable=False),
-    email       = Column(EmailType)
-    verified    = Column(Boolean, nullable=False, default=False)
-    donations   = relationship("Donation", backref="donor")
-
+    uuid        = db.Column(GUID, primary_key=True, default=uuid.uuid4)
+    name        = db.Column(db.String(255), nullable=False),
+    email       = db.Column(EmailType)
+    verified    = db.Column(db.Boolean, nullable=False, default=False)
+    donations   = db.relationship("Donation", backref="donor")
 

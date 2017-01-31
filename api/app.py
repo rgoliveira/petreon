@@ -2,46 +2,41 @@ import sys
 import logging
 import time
 import psycopg2
+
 from flask import Flask, jsonify, redirect, url_for
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
 
 from config import DBConfig
+from models import db
 from models import Rescuee
 from petreon_utils import to_dict
 
 app = Flask(__name__)
-
-engine = create_engine(DBConfig.DATABASE_URL)
-Session = sessionmaker(bind=engine)
+app.config['SQLALCHEMY_DATABASE_URI'] = DBConfig.DATABASE_URL
+db.init_app(app)
 
 @app.route("/init-tests")
 def init_tests():
-    session = Session()
     try:
         objs =  [
                 Rescuee(id="diddy", name="Diddy", kind="dog"),
                 Rescuee(id="dixie", name="Dixie", kind="dog")
                 ]
         for o in objs:
-            session.add(o)
-        session.commit()
+            db.session.add(o)
+        db.session.commit()
     except:
         # rescuee already there with that name
-        session.rollback()
+        db.session.rollback()
         pass
 
     # session must be open to get model columns
     res = to_dict(objs)
-    session.close()
     return redirect(url_for("get_rescuees"))
 
 @app.route("/rescuees")
 def get_rescuees():
-    session = Session()
 
-    rescuees = session.query(Rescuee).all()
-    session.close()
+    rescuees = Rescuee.query.all()
 
     return jsonify({"rescuees": to_dict(rescuees)})
 

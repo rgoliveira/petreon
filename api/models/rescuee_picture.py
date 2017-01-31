@@ -1,15 +1,13 @@
-from sqlalchemy import *
-from sqlalchemy.orm import relationship
-from models import Base
+from models import db
 from models.custom_types import GUID
 import uuid
 
-class RescueePicture(Base):
+class RescueePicture(db.Model):
     __tablename__ = 'rescuee_picture'
 
-    uuid            = Column(GUID, primary_key=True, default=uuid.uuid4)
-    rescuee_uuid    = Column(GUID, ForeignKey("rescuee.uuid"), nullable=False)
-    path            = Column(Text, nullable=False)
-    width           = Column(Integer)
-    height          = Column(Integer)
+    uuid            = db.Column(GUID, primary_key=True, default=uuid.uuid4)
+    rescuee_uuid    = db.Column(GUID, db.ForeignKey("rescuee.uuid"), nullable=False)
+    path            = db.Column(db.Text, nullable=False)
+    width           = db.Column(db.Integer)
+    height          = db.Column(db.Integer)
 
