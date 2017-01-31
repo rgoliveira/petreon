@@ -4,6 +4,7 @@ import time
 import psycopg2
 
 from flask import Flask, jsonify, redirect, url_for
+from flask_migrate import Migrate, MigrateCommand, upgrade
 
 from config import DBConfig
 from models import db
@@ -12,6 +13,7 @@ from petreon_utils import to_dict
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = DBConfig.DATABASE_URL
+migrate = Migrate(app, db)
 db.init_app(app)
 
 @app.route("/init-tests")
@@ -59,15 +61,12 @@ if __name__ == "__main__":
             time.sleep(3)
 
     #
-    # run alembic
+    # run migrations
     #
     print("Running migrations...", file=sys.stderr)
-    import alembic.config
-    alembicArgs = [
-        '--raiseerr',
-        'upgrade', 'head',
-    ]
-    alembic.config.main(argv=alembicArgs)
+    with app.app_context():
+        upgrade()
+        db.session.commit()
 
     #
     # run app
