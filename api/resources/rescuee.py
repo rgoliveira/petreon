@@ -48,3 +48,13 @@ class RescueeAPI(Resource):
         rescuee.name, rescuee.kind = args["name"], args["kind"]
         db.session.commit()
         return jsonify({"rescuee": to_dict(rescuee)})
+
+    def delete(self, rescuee_id):
+        rescuee = Rescuee.query.filter_by(id=rescuee_id).first()
+        if rescuee is None:
+            abort(404, message="Rescuee {} does not exist".format(rescuee_id))
+
+        db.session.delete(rescuee)
+        db.session.commit()
+
+        return "Deleted {}!".format(rescuee_id)
