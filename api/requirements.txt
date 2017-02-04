@@ -5,3 +5,4 @@ Flask-Migrate
 sqlalchemy
 sqlalchemy-utils
 alembic
+flask-restful
