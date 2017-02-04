@@ -34,3 +34,17 @@ class RescueeAPI(Resource):
         db.session.add(rescuee)
         db.session.commit()
         return jsonify({"rescuee": to_dict(rescuee)})
+
+    def put(self, rescuee_id):
+        args = self._parser.parse_args()
+
+        rescuee = Rescuee.query.filter_by(id=rescuee_id).first()
+
+        if rescuee is None:
+            abort(404, message="Rescuee {} does not exist".format(rescuee_id))
+
+        # TODO: Check if defaults were set by arg-parser and if so, don't update field
+        # TODO: More elegant way to do this?
+        rescuee.name, rescuee.kind = args["name"], args["kind"]
+        db.session.commit()
+        return jsonify({"rescuee": to_dict(rescuee)})
