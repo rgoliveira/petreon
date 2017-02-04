@@ -12,6 +12,7 @@ from models import db
 from models import Rescuee
 
 from resources.rescuee import RescueeAPI, RescueesAPI
+from resources.organization import OrganizationAPI
 from resources.tests import TestsAPI
 
 def create_app(config_obj = None):
@@ -26,6 +27,7 @@ def create_app(config_obj = None):
     # setup resources
     api.add_resource(RescueesAPI, '/rescuees')
     api.add_resource(RescueeAPI, '/rescuee/<string:rescuee_id>')
+    api.add_resource(OrganizationAPI, '/org/<string:org_name>')
 
     if app.config["TESTING"]:
         api.add_resource(TestsAPI, '/tests')

@@ -9,7 +9,7 @@ class RescueesAPI(Resource):
         return jsonify({"rescuees": to_dict(Rescuee.query.all())})
 
 class RescueeAPI(Resource):
-    
+
     # Setup parser
     _parser = reqparse.RequestParser()
     _parser.add_argument('name', type=str, default="Bigly", help="Name of the rescuee")
@@ -28,7 +28,7 @@ class RescueeAPI(Resource):
         if Rescuee.query.filter_by(id=rescuee_id).first() is not None:
             # A rescuee with the same ID exists
             # TODO: Maybe make a new unique id?
-            abort(400, message="Rescuee {} already exists".format(rescuee_id))
+            abort(409, message="Rescuee {} already exists".format(rescuee_id))
 
         rescuee = Rescuee(id=rescuee_id, name=args["name"], kind=args["kind"])
         db.session.add(rescuee)
