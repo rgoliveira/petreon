@@ -20,6 +20,7 @@ depends_on = None
 def upgrade():
     op.create_table('donor',
     sa.Column('uuid', models.custom_types.GUID(), nullable=False),
+    sa.Column('name', sa.String(length=255), nullable=False),
     sa.Column('email', sqlalchemy_utils.types.email.EmailType(length=255), nullable=True),
     sa.Column('verified', sa.Boolean(), nullable=False),
     sa.PrimaryKeyConstraint('uuid')
