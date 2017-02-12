@@ -6,39 +6,33 @@ from petreon_utils import to_dict
 
 class CampaignAPI(Resource):
     def get(self, rescuee_id, campaign_type):
-        '''
-	Rescuee to campaigns is a one-to-many relationship. Returns all the campaigns in JSON.
-	'''
         campaign = Campaign.query.filter_by(rescuee_uuid=rescuee_id,type=campaign_type).first()
         if campaign is None:
             abort(404, message="Rescuee {} has no {} campaign!".format(rescuee_id, campaign_type))
 
-        return jsonify({"campaign": campaign})
+        return jsonify({"campaign": to_dict(campaign)})
 
     def post(self, rescuee_id, campaign_type):
-        pass
-        '''
-        if Campaign.query.filter_by(rescuee_uuid=rescuee_id).first() is not None:
+        if Campaign.query.filter_by(rescuee_uuid=rescuee_id, type=campaign_type).first() is not None:
             # TODO: Warn the user properly? Maybe make a unique name?
-            abort(409, message="Campaign {} already exists!".format(campaign_name))
-        campaign = Campaign(name=campaign_name)
+            abort(409, message="Rescuee {} already has a {} campaign!".format(campaign_type))
+        campaign = Campaign(rescuee_uuid=rescuee_id, type=campaign_type)
         db.session.add(campaign)
         db.session.commit()
 
         return jsonify({"campaign": to_dict(campaign)})
-        '''
 
-    def delete(self, campaign_name):
+    def delete(self, campaign_type):
         pass
         '''
-        campaign = Campaign.query.filter_by(name=campaign_name).first()
+        campaign = Campaign.query.filter_by(type=campaign_type).first()
         if campaign is None:
-            abort(404, message="Campaign {} does not exist!".format(campaign_name))
+            abort(404, message="Campaign {} does not exist!".format(campaign_type))
 
         db.session.delete(campaign)
         db.session.commit()
 
-        return "Deleted campaign {}!".format(campaign_name)
+        return "Deleted campaign {}!".format(campaign_type)
         '''
 
 class CampaignsAPI(Resource):
