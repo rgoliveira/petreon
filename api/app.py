@@ -12,6 +12,7 @@ from models import db
 from models import Rescuee
 
 from resources.campaign import CampaignAPI, CampaignsAPI
+from resources.donation import DonationAPI
 from resources.donor import DonorAPI
 from resources.rescuee import RescueeAPI, RescueesAPI
 from resources.organization import OrganizationAPI
@@ -29,6 +30,7 @@ def create_app(config_obj = None):
     # setup resources
     api.add_resource(CampaignsAPI, '/campaigns/<string:rescuee_id>')
     api.add_resource(CampaignAPI, '/campaign/<string:rescuee_id>/<string:campaign_type>')
+    api.add_resource(DonationAPI, '/donation/<string:donor_id>/<string:campaign_id>')
     api.add_resource(DonorAPI, '/donor/<string:donor_name>')
     api.add_resource(RescueesAPI, '/rescuees')
     api.add_resource(RescueeAPI, '/rescuee/<string:rescuee_id>')
