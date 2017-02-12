@@ -24,14 +24,11 @@ class DonationAPI(Resource):
         return jsonify({"donation": to_dict(donation)})
 
     def delete(self, donor_id, campaign_id):
-        pass
-        '''
         donation = Donation.query.filter_by(donor_uuid=donor_id, campaign_uuid=campaign_id).first()
         if donation is None:
-            abort(404, message="Rescuee {} has no {} donation!".format(donor_id, campaign_id))
+            abort(404, message="Donor {} has no donation to Campaign {}!".format(donor_id, campaign_id))
 
         db.session.delete(donation)
         db.session.commit()
 
         return "Deleted donation {}!".format(donation)
-        '''
