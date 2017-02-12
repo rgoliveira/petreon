@@ -7,14 +7,11 @@ from datetime import date
 
 class DonationAPI(Resource):
     def get(self, donor_id, campaign_id):
-        pass
-        '''
-        donation = Donation.query.filter_by(donor_uuid=donor_id,campaign_uuid=campaign_id).first()
+        donation = Donation.query.filter_by(donor_uuid=donor_id, campaign_uuid=campaign_id).first()
         if donation is None:
             abort(404, message="Donor {} has no donations to Campaign {}!".format(donor_id, campaign_id))
 
         return jsonify({"donation": to_dict(donation)})
-        '''
 
     def post(self, donor_id, campaign_id):
         if Donation.query.filter_by(donor_uuid=donor_id, campaign_uuid=campaign_id).first() is not None:
