@@ -43,8 +43,9 @@ class CampaignsAPI(Resource):
         campaigns = Campaign.query.filter_by(rescuee_uuid=rescuee_id).all()
         if not campaigns:
             abort(404, message="Rescuee {} has no campaigns!".format(rescuee_id))
-        for campaign in campaigns:
-           campaign = to_dict(campaign) 
+        campaigns = [to_dict(campaign) for campaign in campaigns]
+
+        #return jsonify({'type': str(type(campaigns[0]))})
 
         return jsonify({"campaigns": campaigns})
 
