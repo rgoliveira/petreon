@@ -5,22 +5,20 @@ from flask_restful import reqparse, abort, Api, Resource
 from petreon_utils import to_dict
 
 class CampaignAPI(Resource):
-    def get(self, rescuee_id):
+    def get(self, rescuee_id, campaign_type):
         '''
 	Rescuee to campaigns is a one-to-many relationship. Returns all the campaigns in JSON.
 	'''
-        campaigns = Campaign.query.filter_by(rescuee_uuid=rescuee_id).all()
-        if not campaigns:
-            abort(404, message="Rescuee {} has no campaigns!".format(rescuee_id))
-        for campaign in campaigns:
-           campaign = to_dict(campaign) 
+        campaign = Campaign.query.filter_by(rescuee_uuid=rescuee_id,type=campaign_type).first()
+        if campaign is None:
+            abort(404, message="Rescuee {} has no {} campaign!".format(rescuee_id, campaign_type))
 
-        return jsonify({"campaigns": campaigns})
+        return jsonify({"campaign": campaign})
 
-    def post(self, campaign_name):
+    def post(self, rescuee_id, campaign_type):
         pass
         '''
-        if Campaign.query.filter_by(name=campaign_name).first() is not None:
+        if Campaign.query.filter_by(rescuee_uuid=rescuee_id).first() is not None:
             # TODO: Warn the user properly? Maybe make a unique name?
             abort(409, message="Campaign {} already exists!".format(campaign_name))
         campaign = Campaign(name=campaign_name)
@@ -42,3 +40,17 @@ class CampaignAPI(Resource):
 
         return "Deleted campaign {}!".format(campaign_name)
         '''
+
+class CampaignsAPI(Resource):
+    def get(self, rescuee_id):
+        '''
+	Rescuee to campaigns is a one-to-many relationship. Returns all the campaigns in JSON.
+	'''
+        campaigns = Campaign.query.filter_by(rescuee_uuid=rescuee_id).all()
+        if not campaigns:
+            abort(404, message="Rescuee {} has no campaigns!".format(rescuee_id))
+        for campaign in campaigns:
+           campaign = to_dict(campaign) 
+
+        return jsonify({"campaigns": campaigns})
+

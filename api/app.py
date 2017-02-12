@@ -11,7 +11,7 @@ import config
 from models import db
 from models import Rescuee
 
-from resources.campaign import CampaignAPI
+from resources.campaign import CampaignAPI, CampaignsAPI
 from resources.donor import DonorAPI
 from resources.rescuee import RescueeAPI, RescueesAPI
 from resources.organization import OrganizationAPI
@@ -27,7 +27,8 @@ def create_app(config_obj = None):
     db.init_app(app)
 
     # setup resources
-    api.add_resource(CampaignAPI, '/campaign/<string:rescuee_id>')
+    api.add_resource(CampaignsAPI, '/campaigns/<string:rescuee_id>')
+    api.add_resource(CampaignAPI, '/campaign/<string:rescuee_id>/<string:campaign_type>')
     api.add_resource(DonorAPI, '/donor/<string:donor_name>')
     api.add_resource(RescueesAPI, '/rescuees')
     api.add_resource(RescueeAPI, '/rescuee/<string:rescuee_id>')
