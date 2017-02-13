@@ -5,6 +5,13 @@ from flask_restful import reqparse, abort, Api, Resource
 from petreon_utils import to_dict
 
 class CampaignAPI(Resource):
+
+    # Set up parser
+    _parser = reqparse.RequestParser()
+    _parser.add_argument("goal", type=float, help="The target amount of money for the campaign")
+    # There is no option for setting the current amount because all campaigns start at 0.
+
+
     def get(self, rescuee_id, campaign_type):
         campaign = Campaign.query.filter_by(rescuee_uuid=rescuee_id,type=campaign_type).first()
         if campaign is None:
@@ -12,15 +19,21 @@ class CampaignAPI(Resource):
 
         return jsonify({"campaign": to_dict(campaign)})
 
+
     def post(self, rescuee_id, campaign_type):
+        args = self._parser.parse_args()
+
         if Campaign.query.filter_by(rescuee_uuid=rescuee_id, type=campaign_type).first() is not None:
             # TODO: Warn the user properly? Maybe make a unique name?
             abort(409, message="Rescuee {} already has a {} campaign!".format(campaign_type))
-        campaign = Campaign(rescuee_uuid=rescuee_id, type=campaign_type)
+
+        campaign = Campaign(rescuee_uuid=rescuee_id, type=campaign_type, current_amount=0, goal=args['goal'])
+
         db.session.add(campaign)
         db.session.commit()
 
         return jsonify({"campaign": to_dict(campaign)})
+
 
     def delete(self, rescuee_id, campaign_type):
         campaign = Campaign.query.filter_by(rescuee_uuid=rescuee_id, type=campaign_type).first()
@@ -31,6 +44,7 @@ class CampaignAPI(Resource):
         db.session.commit()
 
         return "Deleted campaign {}!".format(campaign_type)
+
 
 class CampaignsAPI(Resource):
     def get(self, rescuee_id):
